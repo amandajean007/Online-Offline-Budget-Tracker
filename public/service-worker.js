@@ -1,5 +1,5 @@
 const CACHE_NAME = "static-cache-v2";
-const DATA_CACHE_NAME = "data-cache-v1";
+const RUNTIME_CACHE = `runtime-cache`;
 const FILES_TO_CACHE = [
   "/",
   "/index.html",
@@ -44,34 +44,35 @@ self.addEventListener("activate", function(evt) {
 // fetch
 self.addEventListener("fetch", function(evt) {
   // cache successful GET requests to the API
-  if (evt.request.url.includes("/api/")) {
+  if (evt.request.url.includes("/api/transaction")) {
     evt.respondWith(
-      caches.open(DATA_CACHE_NAME).then(cache => {
-        return fetch(evt.request)
+      caches.open(RUNTIME_CACHE).then(cache =>
+        fetch(evt.request)
           .then(response => {
             // If the response was good, clone it and store it in the cache.
-            if (response.status === 200) {
-              cache.put(evt.request.url, response.clone());
-            }
-
-            return response;
+              cache.put(evt.request, response.clone());
+              return response;
           })
-          .catch(err => {
-            // Network request failed, try to get it from the cache.
-            return cache.match(evt.request);
-          });
-      }).catch(err => console.log(err))
+          .catch(() => caches.match(evt.request))
+      )
     );
-// stop execution of the fetch event callback
+  // stop execution of the fetch event callback
     return;
   }
 
   // if the request is not for the API, serve static assests using "offline-first" approach
   evt.respondWith(
-    caches.open(CACHE_NAME).then(cache => {
-      return cache.match(evt.request).then(response => {
-        return response || fetch(evt.request);
-      });
+    caches.match(evt.request).then(cachedResponse => {
+      if (cachedResponse) {
+        return cachedResponse;
+      }
+      return caches
+        .open(RUNTIME_CACHE)
+        .then(cache =>
+          fetch(evt.request).then(response =>
+            cache.put(evt.request, response.clone()).then(() => response)
+          )
+        );
     })
   );
 });
