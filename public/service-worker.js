@@ -28,6 +28,7 @@ self.addEventListener("install", function (evt) {
 
 // activate
 self.addEventListener("activate", function(evt) {
+  // remove old caches
   evt.waitUntil(
     caches.keys().then(keyList => {
       return Promise.all(
@@ -46,6 +47,7 @@ self.addEventListener("activate", function(evt) {
 
 // fetch
 self.addEventListener("fetch", function(evt) {
+  // cache successful GET requests to the API
   if (evt.request.url.includes("/api/")) {
     evt.respondWith(
       caches.open(DATA_CACHE_NAME).then(cache => {
@@ -64,10 +66,11 @@ self.addEventListener("fetch", function(evt) {
           });
       }).catch(err => console.log(err))
     );
-
+// stop execution of the fetch event callback
     return;
   }
 
+  // if the request is not for the API, serve static assests using "offline-first" approach
   evt.respondWith(
     caches.open(CACHE_NAME).then(cache => {
       return cache.match(evt.request).then(response => {
