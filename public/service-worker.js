@@ -4,6 +4,7 @@ const FILES_TO_CACHE = [
   "/",
   "/index.html",
   "/css/styles.css",
+  "/dist/bundle.js",
   "/js/index.js",
   "/js/db.js",
   "/manifest.json",

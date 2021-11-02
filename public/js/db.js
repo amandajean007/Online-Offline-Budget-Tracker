@@ -7,26 +7,28 @@ const indexedDB =
 
 
 let db;
+// Open the database
 const request = indexedDB.open("budget", 1);
 
-
+// Create an objectStore for this database
 request.onupgradeneeded = (event) => {
-event.target.result.createObjectStore("pending", {
-    keyPath: "id",
-    autoIncrement: true
-});
+    var db = event.target.result;
+    var objectStore = db.createObjectStore("pending", {
+        keyPath: "id",
+        autoIncrement: true
+    });
 };
 
 request.onerror = (err) => {
-console.log(err.message);
+    console.log(err.message);
 };
 
 request.onsuccess = (event) => {
-db = event.target.result;
+    db = event.target.result;
 
-if (navigator.onLine) {
-    checkDatabase();
-}
+    if (navigator.onLine) {
+        checkDatabase();
+    }
 };
 
 // This function is called in index.js when the user creates a transaction while offline.
