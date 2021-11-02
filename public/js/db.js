@@ -12,8 +12,8 @@ const request = indexedDB.open("budget", 1);
 
 // Create an objectStore for this database
 request.onupgradeneeded = (event) => {
-    var db = event.target.result;
-    var objectStore = db.createObjectStore("pending", {
+    const db = event.target.result;
+    db.createObjectStore("pending", {
         keyPath: "id",
         autoIncrement: true
     });
@@ -25,7 +25,6 @@ request.onerror = (err) => {
 
 request.onsuccess = (event) => {
     db = event.target.result;
-
     if (navigator.onLine) {
         checkDatabase();
     }
@@ -33,32 +32,46 @@ request.onsuccess = (event) => {
 
 // This function is called in index.js when the user creates a transaction while offline.
 function saveRecord(record) {
-    const transaction = db.transaction("pending", "readwrite");
+    // create a transaction on the pending db with readwrite access
+    const transaction = db.transaction(["pending"], "readwrite"); // ==> Object { stores inside }
+    
+    // access your pending object store
     const store = transaction.objectStore("pending");
+    
+    // add record to your store with add method.
     store.add(record);
 }
 
-
 // called when user goes online to send transactions stored in db to server
 function checkDatabase() {
-    const transaction = db.transaction("pending", "readonly");
+    // open a transaction on your pending db
+    const transaction = db.transaction(["pending"], "readonly");
+
+    // access your pending object store
     const store = transaction.objectStore("pending");
+
+    // get all records from store and set to a variable
     const getAll = store.getAll();
-    
+
     getAll.onsuccess = () => {
         if (getAll.result.length > 0) {
             fetch("/api/transaction/bulk", {
-            method: "POST",
-            body: JSON.stringify(getAll.result),
-            headers: {
-                Accept: "application/json, text/plain, */*",
-                "Content-Type": "application/json"
-            }
+                method: "POST",
+                body: JSON.stringify(getAll.result),
+                headers: {
+                    Accept: "application/json, text/plain, */*",
+                    "Content-Type": "application/json"
+                }
             })
             .then((response) => response.json())
             .then(() => {
+                // if successful, open a transaction on your pending db
                 const transaction = db.transaction("pending", "readwrite");
+                
+                // access your pending object store
                 const store = transaction.objectStore("pending");
+
+                // clear all items in your store
                 store.clear();
             });
         }
