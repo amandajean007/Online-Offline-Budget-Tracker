@@ -26,8 +26,7 @@ Going on vacation
 ## License <a name="license"></a>
 GNU General Public License v3.0
 ## Contributions <a name="contributions"></a>
-##### You can make contributions to my project here! 
- <button target=_blank href="https://github.com/amandajean007">Contribute Here</button>
+https://github.com/amandajean007
 ## Illustrations <a name="illustrations"></a>
 ![..]
 ## Questions <a name="questions"></a>
