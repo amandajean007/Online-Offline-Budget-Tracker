@@ -10,10 +10,9 @@ This projects aim is to be able to create a functioning app even when there is n
 5. [License](#license)
 6. [Contributions](#contributions)
 7. [Illustrations](#illustrations)
-8. [Tests](#tests)
-9. [Questions](#questions)
-10. [Status](#status)
-11. [Sources](#sources)
+8. [Questions](#questions)
+9. [Status](#status)
+10. [Sources](#sources)
 ## Installation <a name="installation"></a>
 Add this link to your browser on any computer or smart device to run the website.
 ## Examples of Use <a name="examples"></a>
@@ -31,8 +30,6 @@ GNU General Public License v3.0
  <button target=_blank href="https://github.com/amandajean007">Contribute Here</button>
 ## Illustrations <a name="illustrations"></a>
 ![..]
-## Tests <a name="tests"></a>
-
 ## Questions <a name="questions"></a>
 #### If you have any questions please reach out to me via E-Mail: ahanes35@yahoo.com
 ## Status <a name="status"></a>
