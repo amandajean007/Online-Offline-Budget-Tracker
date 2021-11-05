@@ -15,6 +15,7 @@ This projects aim is to be able to create a functioning app even when there is n
 10. [Sources](#sources)
 ## Installation <a name="installation"></a>
 Add this link to your browser on any computer or smart device to run the website.
+https://cryptic-tundra-70283.herokuapp.com/
 ## Examples of Use <a name="examples"></a>
 Going on vacation
 ## Technologies <a name="technologies"></a>
