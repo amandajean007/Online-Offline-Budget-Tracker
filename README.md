@@ -1,7 +1,7 @@
 # Offline-Online Budget Tracker
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 ## Description <a name="description"></a>
-This projects aim is to be able to create a functioning app even when there is no service.
+This projects aim is to be able to track your purchases and income whether you have service or not. When there is no service, the inputs will be stored until they are added when service becomes available again.
 ## Table of Contents
 1. [Description](#description)
 2. [Installation](#installation)
@@ -23,7 +23,8 @@ Going on vacation
    - Javascript
    - CSS
    - Bootstrap
-   - MongoDB
+   - MongoDB / Atlas
+   - Robo 3T
 ## License <a name="license"></a>
 GNU General Public License v3.0
 ## Contributions <a name="contributions"></a>
@@ -33,6 +34,6 @@ https://github.com/amandajean007
 ## Questions <a name="questions"></a>
 #### If you have any questions please reach out to me via E-Mail: ahanes35@yahoo.com
 ## Status <a name="status"></a>
-in progress
+Complete.
 ## Sources <a name="sources"></a>
-Google, MDN Web Docs, Stack Overflow
+Google, MDN Web Docs, Stack Overflow, Youtube-Esterling Accime
