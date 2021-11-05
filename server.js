@@ -23,6 +23,10 @@ mongoose.connect(mongoUri, {
   useUnifiedTopology: true
 });
 
+mongoose.connection.on('connected', () => {
+  console.log('Mongoose is connected!!!!');
+});
+
 app.use(apiRoutes);
 
 app.listen(PORT, () => {

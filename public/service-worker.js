@@ -59,7 +59,8 @@ self.addEventListener("fetch", event => {
           return fetch(event.request)
             .then(response => {
               // If the response was good, clone it and store it in the cache.
-                cache.put(event.request, response.clone());
+                cache.put(event.request, response.clone());4
+                console.log("service worker line 63");
                 return response;
             })
             .catch(() => caches.match(event.request))
