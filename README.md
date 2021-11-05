@@ -1,7 +1,7 @@
 # Offline-Online Budget Tracker
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 ## Description <a name="description"></a>
-This projects aim is to be able to track your purchases and income whether you have service or not. When there is no service, the inputs will be stored until they are added when service becomes available again.
+This projects aim is to be able to track your deposits and expenses whether you have service or not. When there is no service, the inputs will be stored until they are added when service becomes available again.
 ## Table of Contents
 1. [Description](#description)
 2. [Installation](#installation)
