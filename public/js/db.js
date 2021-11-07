@@ -11,7 +11,7 @@ request.onupgradeneeded = (event) => {
 
     db = e.target.result;
     if (db.objectStoreNames.length === 0) {
-        db.createObjectStoredb.createObjectStore("pending", {
+        db.createObjectStore("pending", {
         autoIncrement: true
     });
 };
@@ -26,8 +26,6 @@ request.onsuccess = (event) => {
         checkDatabase();
     }
 };
-
-
 
 
 // This function is called in index.js when the user creates a transaction while offline.
@@ -45,7 +43,7 @@ function saveRecord(record) {
 // called when user goes online to send transactions stored in db to server
 function checkDatabase() {
     // open a transaction on your pending db
-    const transaction = db.transaction(["pending"], "readwrite");
+    let transaction = db.transaction(["pending"], "readwrite");
 
     // access your pending object store
     const store = transaction.objectStore("pending");
@@ -64,10 +62,11 @@ function checkDatabase() {
                 }
             })
             .then((response) => response.json())
-            .then(() => {
+            .then((response) => {
                 // if successful, open a transaction on your pending db
-                const transaction = db.transaction(["pending"], "readwrite");
-                
+                if (response.length !== 0) {
+                    transaction = db.transaction(["pending"], "readwrite");
+                }
                 // access your pending object store
                 const store = transaction.objectStore("pending");
 
