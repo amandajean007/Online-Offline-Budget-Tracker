@@ -6,10 +6,7 @@ const request = indexedDB.open("budget", budgetVersion || 1);
 
 // Create an objectStore for this database
 request.onupgradeneeded = (event) => {
-    const { oldVersion } = e;
-    const newVersion = e.newVersion || db.version();
-
-    db = e.target.result;
+    db = event.target.result;
     if (db.objectStoreNames.length === 0) {
         db.createObjectStore("pending", {
         autoIncrement: true
@@ -78,4 +75,4 @@ function checkDatabase() {
 }
     
 // listen for app coming back online
-window.addEventListener("online", checkDatabase); 
+window.addEventListener("online", checkDatabase);
