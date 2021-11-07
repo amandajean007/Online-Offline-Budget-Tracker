@@ -1,12 +1,6 @@
-const indexedDB =
-  window.indexedDB ||
-  window.mozIndexedDB ||
-  window.webkitIndexedDB ||
-  window.msIndexedDB ||
-  window.shimIndexedDB;
-
-
 let db;
+let budgetVersion;
+
 // Open the database
 const request = indexedDB.open("budget", 1);
 
@@ -14,7 +8,6 @@ const request = indexedDB.open("budget", 1);
 request.onupgradeneeded = (event) => {
     const db = event.target.result;
     db.createObjectStore("pending", {
-        keyPath: "id",
         autoIncrement: true
     });
 };
@@ -29,6 +22,9 @@ request.onsuccess = (event) => {
         checkDatabase();
     }
 };
+
+
+
 
 // This function is called in index.js when the user creates a transaction while offline.
 function saveRecord(record) {
@@ -45,7 +41,7 @@ function saveRecord(record) {
 // called when user goes online to send transactions stored in db to server
 function checkDatabase() {
     // open a transaction on your pending db
-    const transaction = db.transaction(["pending"], "readonly");
+    const transaction = db.transaction(["pending"], "readwrite");
 
     // access your pending object store
     const store = transaction.objectStore("pending");
@@ -66,7 +62,7 @@ function checkDatabase() {
             .then((response) => response.json())
             .then(() => {
                 // if successful, open a transaction on your pending db
-                const transaction = db.transaction("pending", "readwrite");
+                const transaction = db.transaction(["pending"], "readwrite");
                 
                 // access your pending object store
                 const store = transaction.objectStore("pending");
