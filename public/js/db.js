@@ -2,12 +2,16 @@ let db;
 let budgetVersion;
 
 // Open the database
-const request = indexedDB.open("budget", 1);
+const request = indexedDB.open("budget", budgetVersion || 1);
 
 // Create an objectStore for this database
 request.onupgradeneeded = (event) => {
-    const db = event.target.result;
-    db.createObjectStore("pending", {
+    const { oldVersion } = e;
+    const newVersion = e.newVersion || db.version();
+
+    db = e.target.result;
+    if (db.objectStoreNames.length === 0) {
+        db.createObjectStoredb.createObjectStore("pending", {
         autoIncrement: true
     });
 };
