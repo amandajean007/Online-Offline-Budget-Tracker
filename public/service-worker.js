@@ -7,10 +7,9 @@ const FILES_TO_CACHE = [
   "/dist/bundle.js",
   "/js/index.js",
   "/js/db.js",
-  "/manifest.webmanifest",
   "/icons/icon-192x192.png",
   "/icons/icon-512x512.png",
-  "https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css",
+  "/dist/manifest.json"
 ];
 
 // install
@@ -18,9 +17,9 @@ self.addEventListener("install", event => {
   // pre cache all static assets
   event.waitUntil(
     caches.open(STATIC_CACHE).then(cache => {
-        console.log("Your files were pre-cached successfully!");
-        return cache.addAll(FILES_TO_CACHE);
-      })
+      console.log("Your files were pre-cached successfully!");
+      return cache.addAll(FILES_TO_CACHE);
+    })
   );
   self.skipWaiting();
 });
@@ -75,15 +74,6 @@ self.addEventListener("fetch", event => {
       return cache.match(event.request).then(response => {
         return response || fetch(event.request)
       });
-    // fetch(event.request).catch(() => {
-    //   return caches.match(event.request).then((response) => {
-    //     if (response) {
-    //       return response;
-    //     } else if (event.headers.get("accept").includes("text/html")) {
-    //       return caches.match("/");
-    //     }
-    //   });
-    // })
     })
   );
 });

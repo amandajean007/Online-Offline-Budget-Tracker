@@ -1,17 +1,12 @@
-// // register our service worker
-// if ("serviceWorker" in navigator) {
-//   window.addEventListener("load", () => {
-//     navigator.serviceWorker.register("/service-worker.js").then((reg) => {
-//       console.log("Service worker registered.", reg);
-//     });
-//   });
-// }
-
 let transactions = [];
 let myChart;
 
+// fetching all transactions
 fetch("/api/transaction")
-  .then(response => response.json())
+  .then(response => {
+    return response.json();
+  })
+
   .then(data => {
     // save db data on global variable
     transactions = data;
@@ -73,14 +68,14 @@ function populateChart() {
 
   myChart = new Chart(ctx, {
     type: 'line',
-      data: {
-        labels,
-        datasets: [{
-            label: "Total Over Time",
-            fill: true,
-            backgroundColor: "#6666ff",
-            data
-        }]
+    data: {
+      labels,
+      datasets: [{
+        label: "Total Over Time",
+        fill: true,
+        backgroundColor: "#6666ff",
+        data
+      }]
     }
   });
 }
@@ -94,8 +89,7 @@ function sendTransaction(isAdding) {
   if (nameEl.value === "" || amountEl.value === "") {
     errorEl.textContent = "Missing Information";
     return;
-  }
-  else {
+  } else {
     errorEl.textContent = "";
   }
 
@@ -132,8 +126,7 @@ function sendTransaction(isAdding) {
   .then(data => {
     if (data.errors) {
       errorEl.textContent = "Missing Information";
-    }
-    else {
+    } else {
       // clear form
       nameEl.value = "";
       amountEl.value = "";
