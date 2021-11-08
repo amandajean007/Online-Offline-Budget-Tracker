@@ -1,10 +1,24 @@
+window.indexedDB = window.indexedDB || window.mozIndexedDB || window.webkitIndexedDB || window.msIndexedDB;
+window.IDBTransaction = window.IDBTransaction || window.webkitIDBTransaction || window.msIDBTransaction || {READ_WRITE: "readwrite"};
+window.IDBKeyRange = window.IDBKeyRange || window.webkitIDBKeyRange || window.msIDBKeyRange;
+
+if (!window.indexedDB) {
+    console.log("Your browser doesn't support a stable version of IndexedDB. Such and such feature will not be available.");
+}
+
+// Open/Create Database
 let db;
-let budgetVersion;
+const request = indexedDB.open("budget", 1);
+request.onsuccess = function(event) {
+    console.log('success');
+    db = event.target.result;
+    if (navigator.onLine) {
+        console.log('Backend online.');
+        checkDatabase();
+    }
+};
 
-// Open the database
-const request = indexedDB.open("budget", budgetVersion || 30);
-
-// Create an objectStore for this database
+// Defining schema/values
 request.onupgradeneeded = (event) => {
     console.log('Upgrade needed in IndexDB');
     db = event.target.result;
@@ -19,14 +33,6 @@ request.onerror = (err) => {
     console.log(err.message);
 };
 
-request.onsuccess = (event) => {
-    console.log('success');
-    db = event.target.result;
-    if (navigator.onLine) {
-        console.log('Backend online.');
-        checkDatabase();
-    }
-};
 
 
 // This function is called in index.js when the user creates a transaction while offline.

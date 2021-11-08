@@ -62,7 +62,7 @@ self.addEventListener("fetch", event => {
           .catch(err => {
             return cache.match(event.request);
           });
-      }).catch(err => logger.error(err))
+      }).catch(err => console.log(err))
     );
   // stop execution of the fetch event callback
     return;
