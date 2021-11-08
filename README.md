@@ -36,4 +36,4 @@ https://github.com/amandajean007
 ## Status <a name="status"></a>
 Complete.
 ## Sources <a name="sources"></a>
-Google, MDN Web Docs, Stack Overflow, Youtube-Esterling Accime
+Google, MDN Web Docs, Stack Overflow, Youtube-Esterling Accime, https://dev.to/saurabhdaware/make-websites-work-offline-offline-storage-making-indexeddb-the-hero-1oee
