@@ -1,5 +1,5 @@
 const STATIC_CACHE = "static-cache-v2";
-const RUNTIME_CACHE = `data-cache-v1`;
+const DATA_CACHE = `data-cache-v1`;
 const FILES_TO_CACHE = [
   "/",
   "/index.html",
@@ -26,13 +26,13 @@ self.addEventListener("install", function (event) {
 
 // activate
 self.addEventListener("activate", function (event) {
-  // const currentCaches = [STATIC_CACHE, RUNTIME_CACHE];
+  // const currentCaches = [STATIC_CACHE, DATA_CACHE];
   // remove old caches
   event.waitUntil(
     caches.keys().then((keyList) => {
       return Promise.all(
         keyList.map((key) => {
-          if (key !== STATIC_CACHE && key !== RUNTIME_CACHE) {
+          if (key !== STATIC_CACHE && key !== DATA_CACHE) {
             console.log("Removing old cache data", key);
             return caches.delete(key);
           }
@@ -49,7 +49,7 @@ self.addEventListener("fetch", function (event) {
   // cache successful GET requests to the API
   if (event.request.url.includes("/api/")) {
     event.respondWith(
-      caches.open(RUNTIME_CACHE).then((cache) => {
+      caches.open(DATA_CACHE).then((cache) => {
         return fetch(event.request)
           .then((response) => {
             // If the response was good, clone it and store it in the cache.

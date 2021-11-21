@@ -116,7 +116,7 @@ function sendTransaction(isAdding) {
   // also send to server
   fetch("/api/transaction", {
     method: "POST",
-    body: JSON.stringify(transaction),
+    body: JSON.stringify(transactions),
     headers: {
       Accept: "application/json, text/plain, */*",
       "Content-Type": "application/json"
@@ -144,12 +144,10 @@ function sendTransaction(isAdding) {
   });
 }
 
-document.querySelector("#add-btn").onclick = function(event) {
-  event.preventDefault();
+document.querySelector("#add-btn").onclick = function() {
   sendTransaction(true);
 };
 
-document.querySelector("#sub-btn").onclick = function(event) {
-  event.preventDefault();
+document.querySelector("#sub-btn").onclick = function() {
   sendTransaction(false);
 };

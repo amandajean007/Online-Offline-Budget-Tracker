@@ -47,7 +47,7 @@ const saveRecord = (record) => {
     
     // add record to your store with add method.
     store.add(record);
-}
+};
 
 // called when user goes online to send transactions stored in db to server
 function checkDatabase() {
@@ -87,6 +87,16 @@ function checkDatabase() {
         }
     };
 }
+
+request.onsuccess = function (e) {
+    console.log('success');
+    db = e.target.result;
+  
+    if (navigator.onLine) {
+      console.log('Backend online! 🗄️');
+      checkDatabase();
+    }
+  };
 
 // listen for app coming back online
 window.addEventListener("online", checkDatabase);
