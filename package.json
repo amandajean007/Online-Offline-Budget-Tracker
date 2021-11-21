@@ -6,8 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node server.js",
-    "lite-server": "lite-server",
-    "build": "webpack"
+    "lite-server": "lite-server"
   },
   "repository": {
     "type": "git",
@@ -26,9 +25,5 @@
     "mongoose": "^5.5.15",
     "morgan": "^1.9.1",
     "webpack-pwa-manifest": "^4.3.0"
-  },
-  "devDependencies": {
-    "webpack": "^4.31.0",
-    "webpack-cli": "^3.3.2"
   }
 }

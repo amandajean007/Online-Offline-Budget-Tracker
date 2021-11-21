@@ -9,6 +9,7 @@ if (!window.indexedDB) {
 // Open/Create Database
 let db;
 const request = indexedDB.open("budget", 1);
+console.log("budget");
 request.onsuccess = function(event) {
     console.log('success');
     db = event.target.result;
@@ -18,8 +19,8 @@ request.onsuccess = function(event) {
     }
 };
 
-// Defining schema/values
-request.onupgradeneeded = (event) => {
+// Create an objectStore for this database
+request.onupgradeneeded = function (event) {
     console.log('Upgrade needed in IndexDB');
     db = event.target.result;
     if (db.objectStoreNames.length === 0) {
