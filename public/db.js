@@ -8,6 +8,7 @@ if (!window.indexedDB) {
 
 // Open/Create Database
 let db;
+
 const request = indexedDB.open("budget", 1);
 console.log("budget");
 request.onsuccess = function(event) {
